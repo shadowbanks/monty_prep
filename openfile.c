@@ -1,6 +1,5 @@
 #include "monty.h"
 
-void handle_opcode(int str_len, char *op, char *code, int *);
 /**
  * blank_line - check if string is empty
  * @str: string to check
@@ -18,41 +17,47 @@ int blank_line(const char *str)
 	return (1);
 }
 
-int main(int ac, char **av)
+void handle_opcode(s_node *stack, int str_len, char *op, int *line_num)
 {
-	FILE *fd;
-	char *op = NULL, *code = NULL;
-	int line_num = 0;
-	int str_len = 0;
-	char line[LINE_LENGTH];
+	char *code = NULL;
+	int i = 0;
 
-	if (ac != 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
-	}
-	fd = fopen(av[1], "r");
+	instruction_t oper[] = {
+		{"push", push_to_stack},
+		{"pall", pall_stack},
+		{NULL, NULL}
+	};
 
-	if (fd == NULL)
-	{
-		fprintf(stderr, "Can't open file %s\n", av[1]);
-		exit(EXIT_FAILURE);
-	}
-
-	while (fgets(line, sizeof(line), fd) != NULL)
-	{
-		op = strtok(line, " ");
-		str_len = strlen(op);
-		handle_opcode(str_len, op, code, &line_num);
-	}
-
-	return (0);
-}
-
-void handle_opcode(int str_len, char *op, char *code, int *line_num)
-{
+	/*Check if Line is empty*/
 	if (str_len && !blank_line(op))
 	{
+		++(*line_num);/*Line number*/
+		/*Remove newline if it exist from the opcode read*/
+		if (op[strlen(op) - 1] == '\n')
+			op[strlen(op) - 1] = '\0';
+		/*Loop to find the command to execute*/
+		for (;, oper[i].opcode != NULL; i++)
+		{
+			if (!strcmp(oper[i].opcode, op))
+			{
+				if (!strcmp(op, "push"))
+				{
+					code = strtok(NULL, " ");
+					if (code == NULL)
+						code_err(*line_num, op);
+					if (code[strlen(code) - 1] == '\n')
+						code[strlen(code) - 1] = '\0';
+					data = atoi(code);
+					if (data == 0 && strcmp(code, "0"))
+						code_err(*line_num, op);
+				}
+				oper[i].f(stack, *line_num);
+				return;
+			}
+		}
+		unknown(line_num, op);
+	}
+	/*
 		if (!strcmp(op, "push"))
 		{
 			++(*line_num);
@@ -73,5 +78,15 @@ void handle_opcode(int str_len, char *op, char *code, int *line_num)
 			fprintf(stderr, "L%d: unknown instruction %s\n", ++(*line_num), op);
 			exit(EXIT_FAILURE);
 		}
-	}
+		*/
+}
+void code_err(char *op, int *line_num)
+{
+	fprintf(stderr, "L%d: usage: push integer\n", *line_num);
+	exit(EXIT_FAILURE);
+}
+void unknown(char *op, int *line_num)
+{
+	fprintf(stderr, "L%d: unknown instruction %s\n", *line_num, op);
+	exit(EXIT_FAILURE);
 }

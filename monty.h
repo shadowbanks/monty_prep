@@ -1,5 +1,5 @@
-#ifndef MONTY_H
-#define MONTY_H
+#ifndef MONTY_H 
+#define MONTY_H 
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,6 +26,8 @@ typedef struct stack_s
         struct stack_s *next;
 } stack_t;
 
+typedef stack_t *s_node;
+
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -40,7 +42,9 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+extern int data = 0;
+
+int blank_line(const char *str);
+void handle_opcode(s_node *stack, int str_len, char *op, char *code, int *line_num);
 
 #endif /*MONTY_H*/
