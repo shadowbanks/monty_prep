@@ -2,7 +2,7 @@
 
 /**
  * pall_stack - print elements of a stack
- * @stack - pointer to the stack
+ * @stack: pointer to the stack
  * @line_num: line number
  *
  * Return: number of nodes
@@ -14,17 +14,16 @@ void pall_stack(s_node *stack, unsigned int line_num)
 
 	(void)line_num;
 
-	if (stack)
+	if (*stack == NULL || stack == NULL)
+		return;
+	temp = (*stack)->next;
+	nodes++;
+	while (temp->next != NULL)
+		temp = temp->next;
+	while (temp)
 	{
-		temp = (*stack)->next;
+		printf("%d\n", temp->n);
+		temp = temp->prev;
 		nodes++;
-		while (temp->next != NULL)
-			temp = temp->next;
-		while (temp)
-		{
-			printf("%d\n", temp->n);
-			temp = temp->prev;
-			nodes++;
-		}
 	}
 }

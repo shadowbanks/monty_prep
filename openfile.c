@@ -1,7 +1,6 @@
 #include "monty.h"
 
-int data = 0;
-
+int data;
 /**
  * blank_line - check if string is empty
  * @str: string to check
@@ -19,6 +18,15 @@ int blank_line(const char *str)
 	return (1);
 }
 
+/**
+ * handle_opcode - Determine which function to handle each command
+ * @stack: pointer to stack
+ * @str_len: length of command
+ * @op: command passed
+ * @line_num: line number of command
+ *
+ * Return: Nothing
+ */
 void handle_opcode(s_node *stack, int str_len, char *op, int *line_num)
 {
 	char *code = NULL;
@@ -27,6 +35,7 @@ void handle_opcode(s_node *stack, int str_len, char *op, int *line_num)
 	instruction_t oper[] = {
 		{"push", push_to_stack},
 		{"pall", pall_stack},
+		{"pint", pint_stack},
 		{NULL, NULL}
 	};
 
@@ -60,11 +69,22 @@ void handle_opcode(s_node *stack, int str_len, char *op, int *line_num)
 		unknown(op, line_num);
 	}
 }
+
+/**
+ * code_err - Print error message for failed push
+ * @line_num: line number of command
+ */
 void code_err(int *line_num)
 {
 	fprintf(stderr, "L%d: usage: push integer\n", *line_num);
 	exit(EXIT_FAILURE);
 }
+
+/**
+ * unknown - Print error message for incorrect command
+ * @op: command
+ * @line_num: line number of command
+ */
 void unknown(char *op, int *line_num)
 {
 	fprintf(stderr, "L%d: unknown instruction %s\n", *line_num, op);
