@@ -1,5 +1,5 @@
-#ifndef MONTY_H 
-#define MONTY_H 
+#ifndef MONTY_H
+#define MONTY_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,6 +9,8 @@
 #include <ctype.h>
 
 #define LINE_LENGTH 256
+
+extern int data;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -21,9 +23,9 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 typedef stack_t *s_node;
@@ -38,13 +40,15 @@ typedef stack_t *s_node;
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern int data = 0;
-
 int blank_line(const char *str);
-void handle_opcode(s_node *stack, int str_len, char *op, char *code, int *line_num);
+void handle_opcode(s_node *stack, int str_len, char *op, int *line_num);
+void unknown(char *op, int *line_num);
+void code_err(int *line_num);
+void push_to_stack(s_node *stack, unsigned int line_num);
+void pall_stack(s_node *stack, unsigned int line_num);
 
 #endif /*MONTY_H*/

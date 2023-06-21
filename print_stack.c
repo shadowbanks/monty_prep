@@ -7,15 +7,17 @@
  *
  * Return: number of nodes
  */
-size_t pall_stack(s_node *stack, unsigned int line_num)
+void pall_stack(s_node *stack, unsigned int line_num)
 {
 	s_node temp = NULL;
 	int nodes = 0;
 
+	(void)line_num;
+
 	if (stack)
 	{
 		temp = (*stack)->next;
-		node++;
+		nodes++;
 		while (temp->next != NULL)
 			temp = temp->next;
 		while (temp)
@@ -25,6 +27,4 @@ size_t pall_stack(s_node *stack, unsigned int line_num)
 			nodes++;
 		}
 	}
-
-	return (nodes);
 }

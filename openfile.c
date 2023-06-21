@@ -1,5 +1,7 @@
 #include "monty.h"
 
+int data = 0;
+
 /**
  * blank_line - check if string is empty
  * @str: string to check
@@ -36,7 +38,7 @@ void handle_opcode(s_node *stack, int str_len, char *op, int *line_num)
 		if (op[strlen(op) - 1] == '\n')
 			op[strlen(op) - 1] = '\0';
 		/*Loop to find the command to execute*/
-		for (;, oper[i].opcode != NULL; i++)
+		for (; oper[i].opcode != NULL; i++)
 		{
 			if (!strcmp(oper[i].opcode, op))
 			{
@@ -44,43 +46,21 @@ void handle_opcode(s_node *stack, int str_len, char *op, int *line_num)
 				{
 					code = strtok(NULL, " ");
 					if (code == NULL)
-						code_err(*line_num, op);
+						code_err(line_num);
 					if (code[strlen(code) - 1] == '\n')
 						code[strlen(code) - 1] = '\0';
 					data = atoi(code);
 					if (data == 0 && strcmp(code, "0"))
-						code_err(*line_num, op);
+						code_err(line_num);
 				}
 				oper[i].f(stack, *line_num);
 				return;
 			}
 		}
-		unknown(line_num, op);
+		unknown(op, line_num);
 	}
-	/*
-		if (!strcmp(op, "push"))
-		{
-			++(*line_num);
-			code = strtok(NULL, " ");
-			if (code[strlen(code) - 1] == '\n')
-				code[strlen(code) - 1] = '\0';
-			printf("op: %s, code: %s\n", op, code);
-		}
-		else if (!strcmp(op, "pall"))
-		{
-			++(*line_num);
-			printf("op: %s\n", op);
-		}
-		else if (op)
-		{
-			if (op[strlen(op) - 1] == '\n')
-				op[strlen(op) - 1] = '\0';
-			fprintf(stderr, "L%d: unknown instruction %s\n", ++(*line_num), op);
-			exit(EXIT_FAILURE);
-		}
-		*/
 }
-void code_err(char *op, int *line_num)
+void code_err(int *line_num)
 {
 	fprintf(stderr, "L%d: usage: push integer\n", *line_num);
 	exit(EXIT_FAILURE);
