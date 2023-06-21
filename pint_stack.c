@@ -11,12 +11,14 @@ void pint_stack(s_node *stack, unsigned int line_num)
 {
 	s_node temp = NULL;
 
-	(void)line_num;
-
 	if (stack == NULL || *stack == NULL)
-		return;
-	temp = (*stack)->next;
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_num);
+		exit(EXIT_FAILURE);
+	}
+	temp = *stack;
 	while (temp->next != NULL)
 		temp = temp->next;
+	printf("Here\n");
 	printf("%d\n", temp->n);
 }
