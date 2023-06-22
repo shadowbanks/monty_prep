@@ -22,6 +22,9 @@ void swap(s_node *stack, unsigned int line_num)
 	}
 	else
 	{
+		free_stack();
+		fclose(my_node->fd);
+		free(my_node);
 		fprintf(stderr, "L%d: can't swap, stack too short\n", line_num);
 		exit(EXIT_FAILURE);
 	}

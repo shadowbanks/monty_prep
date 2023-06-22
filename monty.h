@@ -33,6 +33,7 @@ typedef stack_t *s_node;
  * @data: push value
  * @head: Beginning of the doubly linked list
  * @current: The current node
+ * @fd: The current file descriptor
  *
  * Description: Structure to hold current and start node,
  * also the value to be push
@@ -42,6 +43,7 @@ typedef struct my_struct
 	int data;
 	s_node head;
 	s_node current;
+	FILE *fd;
 } my_struct;
 
 extern my_struct *my_node;
@@ -71,9 +73,12 @@ void pop_stack(s_node *stack, unsigned int line_num);
 void swap(s_node *stack, unsigned int line_num);
 void add_2top(s_node *stack, unsigned int line_num);
 void nop(s_node *stack, unsigned int line_num);
+void sub_2top(s_node *stack, unsigned int line_num);
+void div_2top(s_node *stack, unsigned int line_num);
 size_t node_count(void);
 void malloc_err(void);
 void open_file_err(char *);
 void monty_usage_err(void);
+void free_stack(void);
 
 #endif /*MONTY_H*/

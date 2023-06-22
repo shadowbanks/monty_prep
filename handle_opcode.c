@@ -38,6 +38,8 @@ void handle_opcode(s_node *stack, int str_len, char *op, int *line_num)
 		{"swap", swap},
 		{"add", add_2top},
 		{"nop", nop},
+		{"sub", sub_2top},
+		{"div", div_2top},
 		{NULL, NULL}
 	};
 

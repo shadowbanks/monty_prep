@@ -24,6 +24,9 @@ void add_2top(s_node *stack, unsigned int line_num)
 	else
 	{
 		fprintf(stderr, "L%d: can't add, stack too short\n", line_num);
+		free_stack();
+		fclose(my_node->fd);
+		free(my_node);
 		exit(EXIT_FAILURE);
 	}
 }
