@@ -67,6 +67,7 @@ void code_err(int *line_num);
 void push_to_stack(s_node *stack, unsigned int line_num);
 void pall_stack(s_node *stack, unsigned int line_num);
 void pint_stack(s_node *stack, unsigned int line_num);
+void pop_stack(s_node *stack, unsigned int line_num);
 void malloc_err(void);
 void open_file_err(char *);
 void monty_usage_err(void);
