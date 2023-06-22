@@ -10,20 +10,17 @@
 void pall_stack(s_node *stack, unsigned int line_num)
 {
 	s_node temp = NULL;
-	int nodes = 0;
 
 	(void)line_num;
+	(void)stack;
 
-	if (*stack == NULL || stack == NULL)
+	if (my_node->current == NULL)
 		return;
-	temp = (*stack)->next;
-	nodes++;
-	while (temp->next != NULL)
-		temp = temp->next;
+
+	temp = my_node->current;
 	while (temp)
 	{
 		printf("%d\n", temp->n);
-		temp = temp->prev;
-		nodes++;
+		temp = temp->next;
 	}
 }

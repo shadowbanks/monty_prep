@@ -10,8 +10,6 @@
 
 #define LINE_LENGTH 256
 
-extern int data;
-
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -29,6 +27,24 @@ typedef struct stack_s
 } stack_t;
 
 typedef stack_t *s_node;
+
+/**
+ * struct my_struct - Store some specific data
+ * @data: push value
+ * @head: Beginning of the doubly linked list
+ * @current: The current node
+ *
+ * Description: Structure to hold current and start node,
+ * also the value to be push
+ */
+typedef struct my_struct
+{
+	int data;
+	s_node head;
+	s_node current;
+} my_struct;
+
+extern my_struct *my_node;
 
 /**
  * struct instruction_s - opcode and its function
@@ -51,5 +67,8 @@ void code_err(int *line_num);
 void push_to_stack(s_node *stack, unsigned int line_num);
 void pall_stack(s_node *stack, unsigned int line_num);
 void pint_stack(s_node *stack, unsigned int line_num);
+void malloc_err(void);
+void open_file_err(char *);
+void monty_usage_err(void);
 
 #endif /*MONTY_H*/

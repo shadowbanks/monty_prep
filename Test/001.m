@@ -1,7 +1,6 @@
 
 push 2
-  push 3   
-  ade
+  push 3   ade
                    pall    
 
 

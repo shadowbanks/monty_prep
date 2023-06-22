@@ -1,6 +1,5 @@
 #include "monty.h"
 
-int data;
 /**
  * blank_line - check if string is empty
  * @str: string to check
@@ -42,14 +41,15 @@ void handle_opcode(s_node *stack, int str_len, char *op, int *line_num)
 	/*Check if Line is empty*/
 	if (str_len && !blank_line(op))
 	{
-		++(*line_num);/*Line number*/
+		/*Line number*/
+		++(*line_num);
 		/*Remove newline if it exist from the opcode read*/
 		if (op[strlen(op) - 1] == '\n')
 			op[strlen(op) - 1] = '\0';
 		/*Loop to find the command to execute*/
-		for (; oper[i].opcode != NULL; i++)
+		for (i = 0; oper[i].opcode != NULL; i++)
 		{
-			if (!strcmp(oper[i].opcode, op))
+			if (strncmp(oper[i].opcode, op, strlen(oper[i].opcode)) == 0)
 			{
 				if (!strcmp(op, "push"))
 				{
@@ -58,8 +58,8 @@ void handle_opcode(s_node *stack, int str_len, char *op, int *line_num)
 						code_err(line_num);
 					if (code[strlen(code) - 1] == '\n')
 						code[strlen(code) - 1] = '\0';
-					data = atoi(code);
-					if (data == 0 && strcmp(code, "0"))
+					my_node->data = atoi(code);
+					if (my_node->data == 0 && strcmp(code, "0"))
 						code_err(line_num);
 				}
 				oper[i].f(stack, *line_num);
@@ -68,25 +68,4 @@ void handle_opcode(s_node *stack, int str_len, char *op, int *line_num)
 		}
 		unknown(op, line_num);
 	}
-}
-
-/**
- * code_err - Print error message for failed push
- * @line_num: line number of command
- */
-void code_err(int *line_num)
-{
-	fprintf(stderr, "L%d: usage: push integer\n", *line_num);
-	exit(EXIT_FAILURE);
-}
-
-/**
- * unknown - Print error message for incorrect command
- * @op: command
- * @line_num: line number of command
- */
-void unknown(char *op, int *line_num)
-{
-	fprintf(stderr, "L%d: unknown instruction %s\n", *line_num, op);
-	exit(EXIT_FAILURE);
 }

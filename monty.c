@@ -1,5 +1,7 @@
 #include "monty.h"
 
+my_struct *my_node = NULL;
+
 /**
  * main - Monty interpreter
  * @ac: argument counter
@@ -10,24 +12,26 @@
 int main(int ac, char **av)
 {
 	FILE *fd;
-	char *op = NULL;
-	int line_num = 0;
-	int str_len = 0;
-	char line[LINE_LENGTH];
+	char *op = NULL, line[LINE_LENGTH];
+	int line_num = 0, str_len = 0;
 	s_node stack = NULL;
 
+	my_node = malloc(sizeof(my_struct));
+
+	if (my_node == NULL)
+		malloc_err();
+
+	my_node->data = 0;
+	my_node->head = NULL;
+	my_node->current = NULL;
+
 	if (ac != 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
-	}
+		monty_usage_err();
+
 	fd = fopen(av[1], "r");
 
 	if (fd == NULL)
-	{
-		fprintf(stderr, "Can't open file %s\n", av[1]);
-		exit(EXIT_FAILURE);
-	}
+		open_file_err(av[1]);
 
 	while (fgets(line, sizeof(line), fd) != NULL)
 	{

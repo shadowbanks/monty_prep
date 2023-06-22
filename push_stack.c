@@ -9,30 +9,25 @@
  */
 void push_to_stack(s_node *stack, unsigned int line_num)
 {
-	s_node new_node = NULL, temp = NULL;
+	s_node new_node = NULL;
 
 	(void)line_num;
 
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
+		malloc_err();
 
-	new_node->next = NULL;
-	new_node->n = data;
+	new_node->prev = NULL;
+	new_node->n = my_node->data;
 
 	if (*stack == NULL)
 	{
-		new_node->prev = NULL;
+		new_node->next = NULL;
 		*stack = new_node;
+		my_node->current = new_node;
+		my_node->head = new_node;
 		return;
 	}
-	temp = *stack;
-	while (temp->next)
-		temp = temp->next;
-
-	temp->next = new_node;
-	new_node->prev = temp;
+	new_node->next = my_node->current;
+	my_node->current = new_node;
 }
