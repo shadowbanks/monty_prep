@@ -36,6 +36,7 @@ void handle_opcode(s_node *stack, int str_len, char *op, int *line_num)
 		{"pint", pint_stack},
 		{"pop", pop_stack},
 		{"swap", swap},
+		{"add", add_2top},
 		{NULL, NULL}
 	};
 

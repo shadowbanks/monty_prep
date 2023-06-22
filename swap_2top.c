@@ -1,8 +1,8 @@
 #include "monty.h"
 
 /**
- * swap the data of the top two node
- * @stack- Pointer to a stack
+ * swap - swap the data of the top two node
+ * @stack: Pointer to a stack
  * @line_num: Line number where the command is
  */
 void swap(s_node *stack, unsigned int line_num)
@@ -29,7 +29,6 @@ void swap(s_node *stack, unsigned int line_num)
 
 /**
  * node_count - Count the amount of element in a stack
- * @stack: Pointer to a stack
  *
  * Return: number of elements
  */
@@ -40,7 +39,7 @@ size_t node_count(void)
 
 	if (my_node->current)
 	{
-		temp = my_node->current;;
+		temp = my_node->current;
 		while (temp)
 		{
 			temp = temp->next;
