@@ -41,7 +41,6 @@ size_t node_count(void)
 	if (my_node->current)
 	{
 		temp = my_node->current;;
-		i++;
 		while (temp)
 		{
 			temp = temp->next;
