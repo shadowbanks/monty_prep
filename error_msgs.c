@@ -4,9 +4,9 @@
  * code_err - Print error message for failed push
  * @line_num: line number of command
  */
-void code_err(int *line_num)
+void code_err(unsigned int line_num)
 {
-	fprintf(stderr, "L%d: usage: push integer\n", *line_num);
+	fprintf(stderr, "L%d: usage: push integer\n", line_num);
 	exit(EXIT_FAILURE);
 }
 

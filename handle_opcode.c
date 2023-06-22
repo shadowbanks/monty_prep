@@ -28,7 +28,6 @@ int blank_line(const char *str)
  */
 void handle_opcode(s_node *stack, int str_len, char *op, int *line_num)
 {
-	char *code = NULL, *conv_num = NULL;
 	int i = 0;
 
 	instruction_t oper[] = {
@@ -52,17 +51,6 @@ void handle_opcode(s_node *stack, int str_len, char *op, int *line_num)
 		{
 			if (strncmp(oper[i].opcode, op, strlen(oper[i].opcode)) == 0)
 			{
-				if (!strcmp(op, "push"))
-				{
-					code = strtok(NULL, " ");
-					if (code == NULL)
-						code_err(line_num);
-					if (code[strlen(code) - 1] == '\n')
-						code[strlen(code) - 1] = '\0';
-					my_node->data = strtol(code, &conv_num, 10);
-					if (*conv_num != '\0')
-						code_err(line_num);
-				}
 				oper[i].f(stack, *line_num);
 				return;
 			}

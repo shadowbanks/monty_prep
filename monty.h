@@ -63,7 +63,7 @@ typedef struct instruction_s
 int blank_line(const char *str);
 void handle_opcode(s_node *stack, int str_len, char *op, int *line_num);
 void unknown(char *op, int *line_num);
-void code_err(int *line_num);
+void code_err(unsigned int line_num);
 void push_to_stack(s_node *stack, unsigned int line_num);
 void pall_stack(s_node *stack, unsigned int line_num);
 void pint_stack(s_node *stack, unsigned int line_num);
